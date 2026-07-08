@@ -1,6 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import TrainingWatermark from "./components/TrainingWatermark";
 import GovBanner from "./components/GovBanner";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
@@ -28,7 +27,7 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <TrainingWatermark />
+         
         <GovBanner />
         <SiteHeader />
         {children}

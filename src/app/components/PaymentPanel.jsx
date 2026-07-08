@@ -5,24 +5,26 @@ import { getPayment } from "@/lib/store";
 export default async function PaymentPanel() {
   const payment = await getPayment();
   const DETAILS = [
+    { label: "Serial Number:", value: payment.serialNumber },
+    { label: "Mark:", value: payment.mark },
+    { label: "Owner Name:", value: payment.ownerName },
+    { label: "Attorney Name:", value: payment.attorneyName },
+    { label: "Email:", value: payment.email },
     { label: "Service:", value: payment.service },
     { label: "Charges:", value: payment.charges },
     { label: "Descriptor:", value: payment.descriptor },
-  ];
+  ].filter((row) => row.value);
 
   return (
     <section className=" bg-white px-6 py-24">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-2">
         <div className="flex flex-col items-center text-center mt-8">
-          <div className="inline-block bg-[#0a3161] px-6 pb-5 pt-1">
-            <div className="text-lg font-semibold leading-tight tracking-wide text-white">
-              UNITED STATES
-              <br />
-              PATENT AND TRADEMARK OFFICE
-            </div>
-            <div className="mt-2 text-5xl font-extrabold italic tracking-tight text-white">
-              uspto <span className="text-sm font-bold not-italic align-super text-red-400">(recreation)</span>
-            </div>
+          <div className="inline-block   pt-1">
+            <img
+              src="/Other/main.avif"
+              alt="USPTO"
+              className="block h-auto w-[320px] max-w-full"
+            />
           </div>
 
           <dl className="mt-10 w-full max-w-lg rounded-2xl border border-black px-4 py-4 text-left">

@@ -11,6 +11,69 @@ export default function PaymentEditor({ initial }) {
   return (
     <form action={formAction} className="mt-8 flex flex-col gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-6">
       <div className="flex flex-col gap-1">
+        <label htmlFor="serialNumber" className="text-sm font-medium text-[#1a1a1a]">
+          Serial Number
+        </label>
+        <input
+          id="serialNumber"
+          name="serialNumber"
+          defaultValue={initial.serialNumber}
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="mark" className="text-sm font-medium text-[#1a1a1a]">
+          Mark
+        </label>
+        <input
+          id="mark"
+          name="mark"
+          defaultValue={initial.mark}
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="ownerName" className="text-sm font-medium text-[#1a1a1a]">
+          Owner Name
+        </label>
+        <input
+          id="ownerName"
+          name="ownerName"
+          defaultValue={initial.ownerName}
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="attorneyName" className="text-sm font-medium text-[#1a1a1a]">
+          Attorney Name
+        </label>
+        <input
+          id="attorneyName"
+          name="attorneyName"
+          defaultValue={initial.attorneyName}
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="email" className="text-sm font-medium text-[#1a1a1a]">
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          defaultValue={initial.email}
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
+        />
+      </div>
+
+      <hr className="border-zinc-200" />
+
+      <div className="flex flex-col gap-1">
         <label htmlFor="service" className="text-sm font-medium text-[#1a1a1a]">
           Service
         </label>

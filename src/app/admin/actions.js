@@ -29,13 +29,22 @@ export async function logoutAction() {
 }
 
 export async function updatePaymentAction(prevState, formData) {
+  const mark = String(formData.get("mark") || "").trim();
+  const serialNumber = String(formData.get("serialNumber") || "").trim();
+  const ownerName = String(formData.get("ownerName") || "").trim();
+  const attorneyName = String(formData.get("attorneyName") || "").trim();
+  const email = String(formData.get("email") || "").trim();
   const service = String(formData.get("service") || "").trim();
   const charges = String(formData.get("charges") || "").trim();
   const descriptor = String(formData.get("descriptor") || "").trim();
   const payLink = String(formData.get("payLink") || "").trim();
 
   if (!service || !charges || !descriptor) {
-    return { error: "All fields are required." };
+    return { error: "Service, Charges, and Descriptor are required." };
+  }
+
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return { error: "Email must be a valid address." };
   }
 
   if (payLink) {
@@ -50,11 +59,22 @@ export async function updatePaymentAction(prevState, formData) {
   }
 
   try {
-    await setPayment({ service, charges, descriptor, payLink });
+    await setPayment({
+      mark,
+      serialNumber,
+      ownerName,
+      attorneyName,
+      email,
+      service,
+      charges,
+      descriptor,
+      payLink,
+    });
   } catch (err) {
     return { error: `Could not save: ${err.message}` };
   }
 
   revalidatePath("/");
+  revalidatePath("/[slug]", "page");
   return { success: "Payment details updated." };
 }

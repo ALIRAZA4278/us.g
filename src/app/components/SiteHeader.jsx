@@ -415,20 +415,18 @@ export default function SiteHeader() {
         <div className="relative">
         <div className="relative mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 bg-[#333333] px-4 py-6">
           <div className="flex items-center gap-3">
-            <div className="relative flex h-11 w-24 items-center justify-center rounded-[2px] bg-white text-xl font-bold tracking-tight text-[#1a1a1a]">
-              uspto
-              <span className="absolute -bottom-3.5 left-0 right-0 text-center text-[7px] font-bold text-[#b91c1c]">
-                (recreation)
-              </span>
-            </div>
-            <div className="hidden text-[13px] font-bold uppercase leading-tight tracking-wide text-white md:block">
-              United States
-              <br />
-              Patent and Trademark Office <span className="align-super text-[8px]">®</span>
-              <div className="mt-1 text-[10px] font-normal normal-case tracking-normal text-zinc-400">
-                An Agency of the Department of Commerce
-              </div>
-            </div>
+            <a href="/" aria-label="USPTO home" className="inline-flex items-center">
+              <img
+                src="/desktop-logo.png"
+                alt="USPTO"
+                className="hidden h-11 w-auto md:block"
+              />
+              <img
+                src="/Mobile-logo.png"
+                alt="USPTO"
+                className="h-10 w-auto md:hidden"
+              />
+            </a>
           </div>
 
           {/* Desktop: nav links + search. Hidden below md, replaced by the icon row. */}

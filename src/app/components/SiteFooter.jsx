@@ -192,22 +192,21 @@ export default function SiteFooter() {
       <div className="bg-[#2b2b2b] px-4 py-5">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 md:flex-row md:flex-wrap md:items-center md:justify-between">
           <div className="flex items-center gap-3">
-            <div className="relative flex h-10 w-20 items-center justify-center rounded-[2px] bg-white text-lg font-bold text-[#1a1a1a]">
-              uspto
-              <span className="absolute -bottom-3 left-0 right-0 text-center text-[6px] font-bold text-[#b91c1c]">
-                (recreation)
-              </span>
-            </div>
-            <div className="text-[11px] font-bold uppercase leading-tight text-white">
-              United States
-              <br />
-              Patent and Trademark Office <span className="align-super text-[7px]">®</span>
-            </div>
+            <img
+              src="/desktop-logo.png"
+              alt="USPTO"
+              className="hidden h-10 w-auto md:block"
+            />
+            <img
+              src="/Mobile-logo.png"
+              alt="USPTO"
+              className="h-8 w-auto md:hidden"
+            />
           </div>
 
           <div className="flex flex-col items-center gap-3 md:flex-row md:gap-4">
             <span className="text-sm text-white">Follow us</span>
-            <div className="flex items-center ">
+            <div className="flex items-center">
               {SOCIAL_LINKS.map((s) => (
                 <a
                   key={s.key}
