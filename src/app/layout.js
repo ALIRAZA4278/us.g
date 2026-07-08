@@ -4,6 +4,7 @@ import TrainingWatermark from "./components/TrainingWatermark";
 import GovBanner from "./components/GovBanner";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
+import { getPayment } from "@/lib/store";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,9 +16,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "United States Patent and Trademark Office",
-};
+export async function generateMetadata() {
+  const payment = await getPayment();
+  return { title: `${payment.service} - ${payment.charges}` };
+}
 
 export default function RootLayout({ children }) {
   return (
