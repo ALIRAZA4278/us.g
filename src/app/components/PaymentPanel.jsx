@@ -72,18 +72,7 @@ export default async function PaymentPanel() {
         </div>
       </div>
 
-      <div className="mx-auto mt-16 max-w-6xl">
-        <TacticNote>
-          Real USPTO fees are paid only through the official Patent Center / TEAS
-          forms or pay.gov, and the charge is billed as USPTO — never through a
-          separate company &ldquo;descriptor&rdquo; like &ldquo;{payment.descriptor}&rdquo;. A
-          mismatched billing name disclosed up front is a hallmark of trademark
-          renewal/maintenance scams that clone the USPTO look to collect card
-          payments. {payment.payLink
-            ? "This button links to a training reveal page, not a real payment processor."
-            : "This button is disabled and submits nowhere."}
-        </TacticNote>
-      </div>
+
     </section>
   );
 }

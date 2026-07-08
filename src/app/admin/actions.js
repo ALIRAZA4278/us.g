@@ -2,34 +2,17 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { hashPassword, verifyPassword, createSession, destroySession } from "@/lib/auth";
-import { findAdminByUsername, createAdmin, setPayment } from "@/lib/store";
-
-export async function signupAction(prevState, formData) {
-  const username = String(formData.get("username") || "").trim();
-  const password = String(formData.get("password") || "");
-
-  if (username.length < 3) {
-    return { error: "Username must be at least 3 characters." };
-  }
-  if (password.length < 8) {
-    return { error: "Password must be at least 8 characters." };
-  }
-
-  const existing = await findAdminByUsername(username);
-  if (existing) {
-    return { error: "That username is already taken." };
-  }
-
-  const { salt, hash } = hashPassword(password);
-  await createAdmin(username, hash, salt);
-  await createSession(username);
-  redirect("/admin");
-}
+import { verifyPassword, checkEnvCredentials, createSession, destroySession } from "@/lib/auth";
+import { findAdminByUsername, setPayment } from "@/lib/store";
 
 export async function loginAction(prevState, formData) {
   const username = String(formData.get("username") || "").trim();
   const password = String(formData.get("password") || "");
+
+  if (checkEnvCredentials(username, password)) {
+    await createSession(username);
+    redirect("/admin");
+  }
 
   const admin = await findAdminByUsername(username);
   if (!admin || !verifyPassword(password, admin.salt, admin.passwordHash)) {

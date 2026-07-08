@@ -23,11 +23,6 @@ async function readStore() {
   }
 }
 
-async function writeStore(store) {
-  await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
-  await fs.writeFile(DATA_PATH, JSON.stringify(store, null, 2));
-}
-
 export async function getPayment() {
   try {
     const { data, error } = await supabaseAdmin
@@ -72,11 +67,4 @@ export async function setPayment(payment) {
 export async function findAdminByUsername(username) {
   const store = await readStore();
   return store.adminUsers?.find((u) => u.username === username) ?? null;
-}
-
-export async function createAdmin(username, passwordHash, salt) {
-  const store = await readStore();
-  store.adminUsers = store.adminUsers ?? [];
-  store.adminUsers.push({ username, passwordHash, salt });
-  await writeStore(store);
 }

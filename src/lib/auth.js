@@ -18,6 +18,19 @@ export function verifyPassword(password, salt, hash) {
   return checkBuf.length === hashBuf.length && crypto.timingSafeEqual(checkBuf, hashBuf);
 }
 
+function timingSafeStringEqual(a, b) {
+  const aBuf = Buffer.from(a);
+  const bBuf = Buffer.from(b);
+  return aBuf.length === bBuf.length && crypto.timingSafeEqual(aBuf, bBuf);
+}
+
+export function checkEnvCredentials(username, password) {
+  const envEmail = process.env.ADMIN_EMAIL;
+  const envPassword = process.env.ADMIN_PASSWORD;
+  if (!envEmail || !envPassword) return false;
+  return timingSafeStringEqual(username, envEmail) && timingSafeStringEqual(password, envPassword);
+}
+
 function sign(value) {
   const mac = crypto.createHmac("sha256", SECRET).update(value).digest("hex");
   return `${value}.${mac}`;

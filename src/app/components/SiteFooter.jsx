@@ -242,18 +242,7 @@ export default function SiteFooter() {
         </button>
       )}
 
-      <div className="bg-[#2b2b2b] px-4 pb-6">
-        <div className="mx-auto max-w-6xl">
-          <TacticNote>
-            Real government footers list agency identity, legitimate search
-            tools, a newsletter signup, and legal/accessibility links —
-            another layer of borrowed trust. All links here point to the
-            real uspto.gov domain (or the real Patent/Trademark search
-            tools), not the scam clone, and the subscribe form does not
-            submit anywhere.
-          </TacticNote>
-        </div>
-      </div>
+     
     </footer>
   );
 }

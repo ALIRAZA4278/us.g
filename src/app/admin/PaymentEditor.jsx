@@ -9,7 +9,7 @@ export default function PaymentEditor({ initial }) {
   const [state, formAction, pending] = useActionState(updatePaymentAction, initialState);
 
   return (
-    <form action={formAction} className="mt-8 flex flex-col gap-4 rounded-xl border border-zinc-300 p-6">
+    <form action={formAction} className="mt-8 flex flex-col gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-6">
       <div className="flex flex-col gap-1">
         <label htmlFor="service" className="text-sm font-medium text-[#1a1a1a]">
           Service
@@ -19,7 +19,7 @@ export default function PaymentEditor({ initial }) {
           name="service"
           defaultValue={initial.service}
           required
-          className="rounded border border-zinc-300 px-3 py-2 text-sm"
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
         />
       </div>
 
@@ -32,7 +32,7 @@ export default function PaymentEditor({ initial }) {
           name="charges"
           defaultValue={initial.charges}
           required
-          className="rounded border border-zinc-300 px-3 py-2 text-sm"
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
         />
       </div>
 
@@ -45,7 +45,7 @@ export default function PaymentEditor({ initial }) {
           name="descriptor"
           defaultValue={initial.descriptor}
           required
-          className="rounded border border-zinc-300 px-3 py-2 text-sm"
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
         />
       </div>
 
@@ -59,7 +59,7 @@ export default function PaymentEditor({ initial }) {
           type="url"
           placeholder="https://example.com/training-reveal"
           defaultValue={initial.payLink}
-          className="rounded border border-zinc-300 px-3 py-2 text-sm"
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
         />
         <span className="text-xs text-[#3d3d3d]">
           Leave empty to keep the button disabled. If set, clicking &ldquo;Pay Now&rdquo;
