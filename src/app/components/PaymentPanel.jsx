@@ -67,7 +67,7 @@ export default async function PaymentPanel() {
 
           <p className="mt-6 max-w-lg text-base italic text-[#3d3d3d]">
             Charges for trademark application services will appear on your bank or card
-            statement as &ldquo;{payment.descriptor}- USPTO&rdquo;
+            statement as &ldquo;{payment.descriptor}&rdquo;
           </p>
         </div>
       </div>
