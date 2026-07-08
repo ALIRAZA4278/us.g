@@ -47,18 +47,6 @@ export default function PaymentEditor({ initial }) {
       </div>
 
       <div className="flex flex-col gap-1">
-        <label htmlFor="attorneyName" className="text-sm font-medium text-[#1a1a1a]">
-          Attorney Name
-        </label>
-        <input
-          id="attorneyName"
-          name="attorneyName"
-          defaultValue={initial.attorneyName}
-          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
-        />
-      </div>
-
-      <div className="flex flex-col gap-1">
         <label htmlFor="email" className="text-sm font-medium text-[#1a1a1a]">
           Email
         </label>
@@ -67,6 +55,18 @@ export default function PaymentEditor({ initial }) {
           name="email"
           type="email"
           defaultValue={initial.email}
+          className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="attorneyName" className="text-sm font-medium text-[#1a1a1a]">
+          Attorney Name
+        </label>
+        <input
+          id="attorneyName"
+          name="attorneyName"
+          defaultValue={initial.attorneyName}
           className="rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-[#1a1a1a]"
         />
       </div>
