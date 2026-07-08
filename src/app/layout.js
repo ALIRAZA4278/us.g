@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "[TRAINING MOCKUP] Not a real government website",
+  title: "United States Patent and Trademark Office",
 };
 
 export default function RootLayout({ children }) {
