@@ -1,0 +1,82 @@
+"use client";
+
+import { useActionState } from "react";
+import { updatePaymentAction } from "./actions";
+
+const initialState = {};
+
+export default function PaymentEditor({ initial }) {
+  const [state, formAction, pending] = useActionState(updatePaymentAction, initialState);
+
+  return (
+    <form action={formAction} className="mt-8 flex flex-col gap-4 rounded-xl border border-zinc-300 p-6">
+      <div className="flex flex-col gap-1">
+        <label htmlFor="service" className="text-sm font-medium text-[#1a1a1a]">
+          Service
+        </label>
+        <input
+          id="service"
+          name="service"
+          defaultValue={initial.service}
+          required
+          className="rounded border border-zinc-300 px-3 py-2 text-sm"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="charges" className="text-sm font-medium text-[#1a1a1a]">
+          Charges
+        </label>
+        <input
+          id="charges"
+          name="charges"
+          defaultValue={initial.charges}
+          required
+          className="rounded border border-zinc-300 px-3 py-2 text-sm"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="descriptor" className="text-sm font-medium text-[#1a1a1a]">
+          Descriptor
+        </label>
+        <input
+          id="descriptor"
+          name="descriptor"
+          defaultValue={initial.descriptor}
+          required
+          className="rounded border border-zinc-300 px-3 py-2 text-sm"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="payLink" className="text-sm font-medium text-[#1a1a1a]">
+          Pay Now link (optional)
+        </label>
+        <input
+          id="payLink"
+          name="payLink"
+          type="url"
+          placeholder="https://example.com/training-reveal"
+          defaultValue={initial.payLink}
+          className="rounded border border-zinc-300 px-3 py-2 text-sm"
+        />
+        <span className="text-xs text-[#3d3d3d]">
+          Leave empty to keep the button disabled. If set, clicking &ldquo;Pay Now&rdquo;
+          on the homepage sends visitors to this URL.
+        </span>
+      </div>
+
+      {state?.error && <p className="text-sm text-red-600">{state.error}</p>}
+      {state?.success && <p className="text-sm text-green-700">{state.success}</p>}
+
+      <button
+        type="submit"
+        disabled={pending}
+        className="self-start rounded bg-[#1a4480] px-4 py-2 text-sm font-bold text-white disabled:opacity-60"
+      >
+        {pending ? "Saving..." : "Save changes"}
+      </button>
+    </form>
+  );
+}
