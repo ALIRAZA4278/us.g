@@ -34,15 +34,6 @@ function FindItFastIcon({ name }) {
   );
 }
 
-const REAL_NAV_LINKS = [
-  { label: "About Us", href: "https://www.uspto.gov/about-us" },
-  { label: "Jobs", href: "https://www.uspto.gov/jobs/join-us" },
-  { label: "Contact Us", href: "https://www.uspto.gov/about-us/contact-us" },
-  { label: "MyUSPTO", href: "https://my.uspto.gov/" },
-];
-
-const SECONDARY_NAV = ["Patents", "Trademarks", "IP Policy", "Learning and Resources"];
-
 // All hrefs point to the real uspto.gov domain (not the scam clone).
 // Kept to each section's landing page rather than guessed subpaths, since we
 // haven't verified every exact URL and don't want dead/incorrect links.
@@ -358,7 +349,11 @@ const FIND_IT_FAST = {
   ],
 };
 
-export default function SiteHeader() {
+export default function SiteHeader({ primaryNav, secondaryNav, desktopLogoUrl, mobileLogoUrl }) {
+  const navPrimary = primaryNav ?? [];
+  const navSecondary = secondaryNav ?? [];
+  const logoDesktop = desktopLogoUrl;
+  const logoMobile = mobileLogoUrl;
   const [openMenu, setOpenMenu] = useState(null);
   const [pinned, setPinned] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -417,12 +412,12 @@ export default function SiteHeader() {
           <div className="flex items-center gap-3">
             <a href="/" aria-label="USPTO home" className="inline-flex items-center">
               <img
-                src="/desktop-logo.png"
+                src={logoDesktop}
                 alt="USPTO"
                 className="hidden h-11 w-auto md:block"
               />
               <img
-                src="/Mobile-logo.png"
+                src={logoMobile}
                 alt="USPTO"
                 className="h-10 w-auto md:hidden"
               />
@@ -432,7 +427,7 @@ export default function SiteHeader() {
           {/* Desktop: nav links + search. Hidden below md, replaced by the icon row. */}
           <div className="hidden flex-col items-end gap-2.5 md:flex">
             <nav aria-label="Primary" className="flex flex-wrap items-center gap-3 text-[13px] text-white">
-              {REAL_NAV_LINKS.map((link, i) => (
+              {navPrimary.map((link, i) => (
                 <span key={link.href} className="flex items-center gap-3">
                   {i > 0 && <span className="text-black">|</span>}
                   <a
@@ -546,20 +541,20 @@ export default function SiteHeader() {
           with a "‹ Back" row, matching the real uspto.gov mobile nav. */}
       {mobileOpen && !mobileSection && (
         <div className="relative z-10 md:hidden">
-          {SECONDARY_NAV.map((item) => (
+          {navSecondary.map((navItem) => (
             <button
-              key={item}
+              key={navItem.key}
               type="button"
-              onClick={() => setMobileSection(item)}
+              onClick={() => setMobileSection(navItem.key)}
               className="flex w-full items-center gap-2 border-b border-zinc-200 bg-white px-4 py-3 text-left text-[15px] font-semibold text-[#0076a3]"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M9 6l6 6-6 6" stroke="#1a1a1a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              {item}
+              {navItem.label}
             </button>
           ))}
-          {REAL_NAV_LINKS.map((link) => (
+          {navPrimary.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -587,12 +582,12 @@ export default function SiteHeader() {
             Back
           </button>
           <a
-            href={MENUS[mobileSection].href}
+            href={navSecondary.find((n) => n.key === mobileSection)?.href ?? MENUS[mobileSection].href}
             target="_blank"
             rel="noopener noreferrer"
             className="block border-b border-zinc-200 bg-white px-4 py-3 pl-[30px] text-[15px] font-semibold text-[#0076a3]"
           >
-            {mobileSection} Home
+            {navSecondary.find((n) => n.key === mobileSection)?.label ?? mobileSection} Home
           </a>
           {MENUS[mobileSection].columns.map((col) => (
             <button
@@ -719,12 +714,12 @@ export default function SiteHeader() {
                 '"Public Sans Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
             }}
           >
-            {SECONDARY_NAV.map((item) => {
-              const isActive = openMenu === item;
+            {navSecondary.map((navItem) => {
+              const isActive = openMenu === navItem.key;
               return (
                 <div
-                  key={item}
-                  onMouseEnter={() => previewOpen(item)}
+                  key={navItem.key}
+                  onMouseEnter={() => previewOpen(navItem.key)}
                   className={
                     "group flex items-center gap-1 border-b-2  hover:text-[#007a33] " +
                     (isActive
@@ -733,17 +728,17 @@ export default function SiteHeader() {
                   }
                 >
                   <a
-                    href={MENUS[item].href}
+                    href={navItem.href}
                     target="_blank"
                     rel="noopener noreferrer"
 
                   >
-                    {item}
+                    {navItem.label}
                   </a>
                   <button
                     type="button"
-                    aria-label={`Toggle ${item} menu`}
-                    onClick={() => toggleClick(item)}
+                    aria-label={`Toggle ${navItem.label} menu`}
+                    onClick={() => toggleClick(navItem.key)}
                     className="leading-none"
                   >
                  

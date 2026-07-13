@@ -62,7 +62,9 @@ function handleSubscribe(e) {
   e.preventDefault();
 }
 
-export default function SiteFooter() {
+export default function SiteFooter({ desktopLogoUrl, mobileLogoUrl }) {
+  const logoDesktop = desktopLogoUrl;
+  const logoMobile = mobileLogoUrl;
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
@@ -193,12 +195,12 @@ export default function SiteFooter() {
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 md:flex-row md:flex-wrap md:items-center md:justify-between">
           <div className="flex items-center gap-3">
             <img
-              src="/desktop-logo.png"
+              src={logoDesktop}
               alt="USPTO"
               className="hidden h-10 w-auto md:block"
             />
             <img
-              src="/Mobile-logo.png"
+              src={logoMobile}
               alt="USPTO"
               className="h-8 w-auto md:hidden"
             />

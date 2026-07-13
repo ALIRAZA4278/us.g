@@ -3,7 +3,7 @@ import "./globals.css";
 import GovBanner from "./components/GovBanner";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
-import { getPayment } from "@/lib/store";
+import { getPayment, getSiteSettings } from "@/lib/store";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,18 +20,24 @@ export async function generateMetadata() {
   return { title: `${payment.service} - ${payment.charges}` };
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const settings = await getSiteSettings();
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-         
-        <GovBanner />
-        <SiteHeader />
+        <GovBanner settings={settings} />
+        <SiteHeader
+          primaryNav={settings.primaryNav}
+          secondaryNav={settings.secondaryNav}
+          desktopLogoUrl={settings.desktopLogoUrl}
+          mobileLogoUrl={settings.mobileLogoUrl}
+        />
         {children}
-        <SiteFooter />
+        <SiteFooter desktopLogoUrl={settings.desktopLogoUrl} mobileLogoUrl={settings.mobileLogoUrl} />
       </body>
     </html>
   );

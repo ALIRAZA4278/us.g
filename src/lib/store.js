@@ -83,3 +83,48 @@ export async function findAdminByUsername(username) {
   const store = await readStore();
   return store.adminUsers?.find((u) => u.username === username) ?? null;
 }
+
+const EMPTY_SITE_SETTINGS = {
+  desktopLogoUrl: null,
+  mobileLogoUrl: null,
+  paymentLogoUrl: null,
+  bannerText: null,
+  bannerToggleLabel: null,
+  dotGovHeading: null,
+  dotGovBody: null,
+  httpsHeading: null,
+  httpsBody: null,
+  primaryNav: [],
+  secondaryNav: [],
+};
+
+export async function getSiteSettings() {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("site_settings")
+      .select(
+        "desktop_logo_url, mobile_logo_url, payment_logo_url, banner_text, banner_toggle_label, dot_gov_heading, dot_gov_body, https_heading, https_body, primary_nav, secondary_nav"
+      )
+      .eq("id", 1)
+      .single();
+
+    if (error || !data) {
+      return EMPTY_SITE_SETTINGS;
+    }
+    return {
+      desktopLogoUrl: data.desktop_logo_url,
+      mobileLogoUrl: data.mobile_logo_url,
+      paymentLogoUrl: data.payment_logo_url,
+      bannerText: data.banner_text,
+      bannerToggleLabel: data.banner_toggle_label,
+      dotGovHeading: data.dot_gov_heading,
+      dotGovBody: data.dot_gov_body,
+      httpsHeading: data.https_heading,
+      httpsBody: data.https_body,
+      primaryNav: data.primary_nav ?? [],
+      secondaryNav: data.secondary_nav ?? [],
+    };
+  } catch {
+    return EMPTY_SITE_SETTINGS;
+  }
+}

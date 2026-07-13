@@ -1,9 +1,10 @@
 import Image from "next/image";
 import TacticNote from "./TacticNote";
-import { getPayment } from "@/lib/store";
+import { getPayment, getSiteSettings } from "@/lib/store";
 
 export default async function PaymentPanel() {
   const payment = await getPayment();
+  const settings = await getSiteSettings();
   const DETAILS = [
     { label: "Serial Number:", value: payment.serialNumber },
     { label: "Mark:", value: payment.mark },
@@ -21,7 +22,7 @@ export default async function PaymentPanel() {
         <div className="flex flex-col items-center text-center mt-8">
           <div className="inline-block   pt-1">
             <img
-              src="/Other/main.avif"
+              src={settings.paymentLogoUrl}
               alt="USPTO"
               className="block h-auto w-[320px] max-w-full"
             />
