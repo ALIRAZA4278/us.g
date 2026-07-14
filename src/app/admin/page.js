@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { getSessionUsername } from "@/lib/auth";
 import { getPayment } from "@/lib/store";
 import { paymentSlug } from "@/lib/slug";
@@ -13,6 +14,11 @@ export default async function AdminDashboardPage() {
 
   const payment = await getPayment();
   const slug = paymentSlug(payment);
+
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = headersList.get("x-forwarded-proto") ?? (host?.startsWith("localhost") ? "http" : "https");
+  const fullUrl = `${protocol}://${host}/${slug}`;
 
   return (
     <div className="min-h-[80vh] w-full bg-zinc-50 px-4 py-16">
@@ -32,10 +38,22 @@ export default async function AdminDashboardPage() {
         </h2>
         <p className="mt-1 text-sm text-[#3d3d3d]">
           Edits here update the Service / Charges / Descriptor shown on the
-          payment mockup page, currently live at{" "}
-          <code className="rounded bg-zinc-100 px-1 py-0.5">/{slug}</code>. The
-          URL updates automatically to match Service + Charges.
+          payment mockup page. The URL updates automatically to match
+          Service + Charges.
         </p>
+        <div className="mt-3 flex flex-col gap-1 rounded-lg border border-zinc-200 bg-zinc-50 p-3">
+          <span className="text-xs font-medium uppercase tracking-wide text-[#3d3d3d]">
+            Live link
+          </span>
+          <a
+            href={fullUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="break-all text-sm font-medium text-[#0076a3] underline"
+          >
+            {fullUrl}
+          </a>
+        </div>
         <PaymentEditor initial={payment} />
       </div>
     </div>
